@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from pytileTester import main as PyTile
 import asyncio
 
@@ -10,7 +10,11 @@ def hello():
     loop = asyncio.new_event_loop()
     location = loop.run_until_complete(PyTile())
     loop.close()
-    return f'<h1>Hello from Flask! The Tile Tracker is at: {location}</h1>'
+    
+    return render_template('index.html', location=location)
+# return f'<h1>Hello from Flask! The Tile Tracker is at: {location}</h1>'
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
