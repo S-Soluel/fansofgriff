@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Griff Tracker</title>
+    <style>
+        /* Add any custom styles for your landing page here */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .map-container {
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Griff Tracker!</h1>
+        <h3>The dog is at: {{ lat }}, {{ long }}</h3>
+            <!-- This is where you'll embed the contents of index.html -->
+            {{ iframe|safe }}
+        </div>
+    </div>
+</body>
+</html>
