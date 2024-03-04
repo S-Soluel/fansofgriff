@@ -13,7 +13,7 @@ async def main() -> None:
         for tile_uuid, tile in tiles.items():
             print(f"{tile.latitude} {tile.longitude}")
             if tile.kind == "TILE":
-                return f"{tile.latitude} {tile.longitude}"
+                return tile.latitude, tile.longitude
             if tile.uuid == "xxx":
                 break
 
