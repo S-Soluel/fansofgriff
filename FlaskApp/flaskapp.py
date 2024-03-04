@@ -14,7 +14,7 @@ def hello():
     loop = asyncio.new_event_loop()
     lat, long = loop.run_until_complete(PyTile())
     loop.close()
-
+    
     m = folium.Map(location=map_center_coords, zoom_start=17)
     folium.CircleMarker(location=(lat, long), radius=20, fill_color='red').add_to(m)
 
