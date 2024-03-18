@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<body>
+    <div id="calendar"></div>
+    <script>
+        let calendarEl = document.getElementById
+        ('calendar');
+
+        let calendar = new FullCalendar.Calendar
+        (calendarEl, {
+            events : [
+            {% for event in events %},
+            {
+                title : '{{event.todo}}',
+                start : '{{event.date}}',
+            },
+            {% endfor %}
+            ]
+        });
+
+        calendar.render();
+    </script>
+</body>
+</head>
+</html>
