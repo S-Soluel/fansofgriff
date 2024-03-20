@@ -5,6 +5,17 @@ import folium
 
 app = Flask(__name__)
 
+events = [
+    {
+        'todo' : 'Relays Opening',
+        'date' : '04-26-2024',
+    },
+    {
+        'todo' : 'Beautiful Bulldog Contest',
+        'date' : '04-20-2024'
+    }
+]
+
 @app.route('/')
 def hello():
 
@@ -23,6 +34,15 @@ def hello():
     iframe = m.get_root()._repr_html_()
 
     return render_template('landing.html', lat=lat, long=long, iframe=iframe)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html', events = events)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
