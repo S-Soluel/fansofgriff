@@ -10,11 +10,46 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            position: relative; /* Ensure container is positioned for absolute positioning of event dates */
         }
-        .map-container {
-            border: 1px solid #ccc;
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
             margin-top: 20px;
+        }
+        .day {
+            border: 1px solid #ccc;
             padding: 10px;
+            text-align: center;
+        }
+        .event-date {
+            position: absolute;
+            color: white;
+            background-color: #007bff;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .navigation a {
+            text-decoration: none;
+            color: #007bff;
+            cursor: pointer;
+        }
+        .days-of-week {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -22,10 +57,97 @@
     <div class="container">
         <h1>Welcome to the Griff Tracker!</h1>
         <h3>The dog is at: {{ lat }}, {{ long }}</h3>
-        <h4>Want to see where Griff will be? Click <a href="/calendar">here</a> for Griff's Events Calendar</h4>
-            <!-- This is where you'll embed the contents of index.html -->
-            {{ iframe|safe }}
-        </div>
+        <!-- This is where you'll embed the contents of index.html -->
+        {{ iframe|safe }}
     </div>
+
+    
+    <!-- Calendar with event dates -->
+    <div class="container">
+        <div class="calendar-header">
+            <div class="navigation">
+                <a id="prevMonth">&#8249;</a>
+                <span id="currentMonth">April 2024</span>
+                <a id="nextMonth">&#8250;</a>
+            </div>
+            <div class="days-of-week">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+            </div>
+        </div>
+        <div class="calendar" id="calendar"></div>
+    </div>
+
+    <script>
+        const currentMonthElement = document.getElementById('currentMonth');
+        const prevMonthElement = document.getElementById('prevMonth');
+        const nextMonthElement = document.getElementById('nextMonth');
+        const calendarElement = document.getElementById('calendar');
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        // Initial display of month/year and calendar
+        displayMonthYear();
+        renderCalendar();
+
+        // Event listeners for navigation
+        prevMonthElement.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11; // December
+                currentYear--;
+            }
+            displayMonthYear();
+            renderCalendar();
+        });
+
+        nextMonthElement.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0; // January
+                currentYear++;
+            }
+            displayMonthYear();
+            renderCalendar();
+        });
+
+        // Function to display current month and year
+        function displayMonthYear() {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+        }
+
+        // Function to render the calendar
+        function renderCalendar() {
+            calendarElement.innerHTML = ''; // Clear previous calendar
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Get total days in the month
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // Get day of the week for the 1st day
+            let dayCount = 1;
+
+            // Render days
+            for (let i = 0; i < 6; i++) { // Assuming maximum 6 weeks in a month
+                for (let j = 0; j < 7; j++) {
+                    const dayElement = document.createElement('div');
+                    if (i === 0 && j < firstDayOfMonth) {
+                        dayElement.textContent = ''; // Empty cell before the 1st day
+                    } else if (dayCount > daysInMonth) {
+                        dayElement.textContent = ''; // Empty cell after the last day
+                    } else {
+                        dayElement.textContent = dayCount;
+                        dayCount++;
+                    }
+                    dayElement.classList.add('day');
+                    calendarElement.appendChild(dayElement);
+                }
+            }
+        }
+    </script>
 </body>
 </html>
