@@ -1,42 +1,22 @@
 from flask import Flask, render_template
-from pytileTester import main as PyTile
 from calcmapsize import calc_map_size_from_desired_width as calcheight
-import asyncio
 import folium
-
-
 
 app = Flask(__name__)
 
-events = [
-    {
-        'todo' : 'Relays Opening',
-        'date' : '04-26-2024',
-    },
-    {
-        'todo' : 'Beautiful Bulldog Contest',
-        'date' : '04-20-2024'
-    }
-]
-
 @app.route('/')
 def hello():
-
     griff_icon = "https://griffcapstone.s3.us-east-2.amazonaws.com/images.png"
-
     lat_a, long_a = 41.607283, -93.659769  # Top left corner of campus
     lat_b, long_b = 41.600262, -93.649731  # Bottom right corner of campus
     map_center_coords = ((lat_a + lat_b) / 2, (long_a + long_b) / 2)
 
-
     desired_width = 800     # width of map on webpage, used to calc the height
     desired_height = -1 * calcheight(lat_a, long_a, lat_b, long_b, desired_width)
-    print(desired_height)
 
-    loop = asyncio.new_event_loop()
-    lat, long = loop.run_until_complete(PyTile())
-    loop.close()
-    
+    # Call get_tile_data function to get tile data synchronously
+    lat, long = get_tile_data()
+
     m = folium.Map(
         location=map_center_coords, 
         zoom_start=17, bounds=[(lat_a, long_a), (lat_b, long_b)], 
@@ -50,10 +30,7 @@ def hello():
         tap=False
     )
 
-    custom_icon = folium.CustomIcon(griff_icon, icon_size=(40, 40))
-    #folium.Marker(location=(lat, long), icon=custom_icon).add_to(m)
     standard_icon = folium.Icon(color='darkblue', icon_color='white', icon="dog", angle=0, prefix='fa')
-
     folium.Marker(location=(lat, long), tooltip="Griff is here!", icon=standard_icon).add_to(m)
 
     m.get_root().width = f"{desired_width}px"
@@ -62,14 +39,25 @@ def hello():
 
     return render_template('landing.html', lat=lat, long=long, iframe=iframe)
 
+def get_tile_data():
+    # Simulate fetching tile data synchronously
+    return 41.603062, -93.653819
+
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('landing.html')
 
+# Define route for the calendar page
 @app.route('/calendar')
 def calendar():
-    return render_template('calendar.html', events = events)
+    # Add logic to render the calendar page
+    return render_template('calendar.html')
 
+# Define route for the email notifications page
+@app.route('/emails')
+def notifications():
+    # Add logic to render the email notifications page
+    return render_template('email_notifications.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

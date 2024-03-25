@@ -3,156 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Griff's Events</title>
-    <!-- FullCalendar resources -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.js"></script>
+    <title>Calendar</title>
     <style>
-        /* Adjust calendar container size */
-        #calendar {
-            width: 90%;
-            margin: 0 auto;
-            margin-top: 50px; /* Adjust as needed */
+        /* Style for navigation bar */
+        nav {
+            background-color: #007bff;
+            overflow: hidden;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative; /* Ensure container is positioned for absolute positioning of event dates */
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
         }
-        /* Events container styling */
-        #eventsContainer {
-            margin-top: 20px;
-            .calendar {
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                gap: 5px;
-                margin-top: 20px;
-            }
-            .day {
-                border: 1px solid #ccc;
-                padding: 10px;
-                text-align: center;
-            }
-            .event-date {
-                position: absolute;
-                color: white;
-                background-color: #007bff;
-                padding: 2px 5px;
-                border-radius: 4px;
-                font-size: 12px;
-            }
-            .calendar-header {
-                text-align: center;
-                margin-bottom: 10px;
-            }
-            .navigation {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-            }
-            .navigation a {
-                text-decoration: none;
-                color: #007bff;
-                cursor: pointer;
-            }
-            .days-of-week {
-                display: flex;
-                justify-content: space-between;
-                background-color: #f0f0f0;
-            }
+        nav a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-<!-- Calendar with event dates -->
-    <div class="container">
-        <div class="calendar-header">
-            <div class="navigation">
-                <a id="prevMonth">&#8249;</a>
-                <span id="currentMonth">April 2024</span>
-                <a id="nextMonth">&#8250;</a>
-            </div>
-            <div class="days-of-week">
-                <div class="day">Sun</div>
-                <div class="day">Mon</div>
-                <div class="day">Tue</div>
-                <div class="day">Wed</div>
-                <div class="day">Thu</div>
-                <div class="day">Fri</div>
-                <div class="day">Sat</div>
-            </div>
-        </div>
-        <div class="calendar" id="calendar"></div>
-    </div>
-
-    <script>
-        const currentMonthElement = document.getElementById('currentMonth');
-        const prevMonthElement = document.getElementById('prevMonth');
-        const nextMonthElement = document.getElementById('nextMonth');
-        const calendarElement = document.getElementById('calendar');
-
-        let currentDate = new Date();
-        let currentMonth = currentDate.getMonth();
-        let currentYear = currentDate.getFullYear();
-
-    // Initial display of month/year and calendar
-        displayMonthYear();
-        renderCalendar();
-
-    // Event listeners for navigation
-        prevMonthElement.addEventListener('click', () => {
-            currentMonth--;
-            if (currentMonth < 0) {
-                currentMonth = 11; // December
-                currentYear--;
-            }
-            displayMonthYear();
-            renderCalendar();
-        });
-
-        nextMonthElement.addEventListener('click', () => {
-            currentMonth++;
-            if (currentMonth > 11) {
-                currentMonth = 0; // January
-                currentYear++;
-            }
-            displayMonthYear();
-            renderCalendar();
-        });
-
-    // Function to display current month and year
-        function displayMonthYear() {
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-        }
-
-    // Function to render the calendar
-        function renderCalendar() {
-            calendarElement.innerHTML = ''; // Clear previous calendar
-            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Get total days in the month
-            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // Get day of the week for the 1st day
-            let dayCount = 1;
-
-        // Render days
-            for (let i = 0; i < 6; i++) { // Assuming maximum 6 weeks in a month
-                for (let j = 0; j < 7; j++) {
-                    const dayElement = document.createElement('div');
-                    if (i === 0 && j < firstDayOfMonth) {
-                        dayElement.textContent = ''; // Empty cell before the 1st day
-                    } else if (dayCount > daysInMonth) {
-                        dayElement.textContent = ''; // Empty cell after the last day
-                    } else {
-                        dayElement.textContent = dayCount;
-                        dayCount++;
-                    }
-                    dayElement.classList.add('day');
-                    calendarElement.appendChild(dayElement);
-                }
-            }
-        }
-    </script>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/calendar">Calendar</a>
+        <a href="/notifications">Email Notifications</a>
+    </nav>
+    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%234285F4&title=Griff's%20Events&src=ZmFuc29mZ3JpZmY1MUBnbWFpbC5jb20&color=%23039BE5" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 </body>
 </html>
