@@ -3,7 +3,6 @@ from pytileTester import main as PyTile
 from calcmapsize import calc_map_size_from_desired_width as calcheight
 import asyncio
 import folium
-import boto3
 
 
 
