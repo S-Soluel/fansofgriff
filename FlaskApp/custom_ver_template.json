@@ -1,0 +1,8 @@
+{
+    "TemplateName":"EmailVerification",
+    "FromEmailAddress":"fansofgriff51@gmail.com",
+    "TemplateSubject":"Verifying Your Email with the Griff Tracker!",
+    "TemplateContent":"<html><head></head><body style='font-family:sans-serif;'><h1 style='text-align:center'>Ready to use the Griff Tracker?</h1><p>Thank you for requesting to receive email notifications for the Griff Tracker web application! There is one more step to complete before you can start receiving emails from the Griff Tracker. Just click on the following link to verify your email address. Once you have been verified, you'll be redirected to the our webpage.</p><h1 style='text-align:center'>About this Project</h1><p>This project has been developed by Maddie Backhaus, Joe Barnard, Maddie McErlean, and Sam Solheim in Spring of 2024 for their CS 191 Capstone. The goal of this project is to create a web application that could (theoretically) allow students enrolled at Drake University to get notifications when Griff is showing up to an event on campus. As we all know, the bulldog is the star of the show!</p></body></html>",
+    "SuccessRedirectionURL":"http://18.220.236.240/",
+    "FailureRedirectionURL":"http://18.220.236.240/"
+}
