@@ -8,6 +8,6 @@ response = ses.list_identities(
   MaxItems=10
 )
 
-print(response)
+print(response['Identities'])
 
 
