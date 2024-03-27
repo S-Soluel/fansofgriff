@@ -7,7 +7,7 @@ SENDER = "Fans of Griff <fansofgriff51@gmail.com>"
 
 # Replace recipient@example.com with a "To" address. If your account 
 # is still in the sandbox, this address must be verified.
-RECIPIENT = "sam.solheim@drake.edu"
+RECIPIENT = "maddie.backhaus@drake.edu"
 
 # Specify a configuration set. If you do not want to use a configuration
 # set, comment the following variable, and the 
