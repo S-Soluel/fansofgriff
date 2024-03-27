@@ -89,7 +89,15 @@ def get_contact(email):
    )
    print(response)
 
-get_email_template()
+## Need to make a function that will give me a list of dictionaries
+def get_subscribers_and_templatedata():
+   temp = []
+
+
+
+
+
+# get_email_template()
 
 def update_template(name, subject, text_content, html_content):
    response = sesv2.update_email_template(
