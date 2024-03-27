@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
 from calcmapsize import calc_map_size_from_desired_width as calcheight
 import folium
 
@@ -54,8 +54,13 @@ def calendar():
     return render_template('calendar.html')
 
 # Define route for the email notifications page
-@app.route('/emails')
-def notifications():
+@app.route('/subscribe', methods = ["GET", "POST"])
+def subscribe():
+    if request.method == "POST":
+        email = request.form['email']
+        
+
+        flash('User added successfully!', 'success')  # 'success' is a category; makes a green banner at the top
     # Add logic to render the email notifications page
     return render_template('email_notifications.html')
 
