@@ -54,10 +54,10 @@ def calendar():
     return render_template('calendar.html')
 
 # Define route for the email notifications page
-@app.route('/emails')
+@app.route('/notifications')
 def notifications():
     # Add logic to render the email notifications page
-    return render_template('email_notifications.html')
+    return render_template('notifications.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
