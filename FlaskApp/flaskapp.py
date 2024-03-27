@@ -11,7 +11,7 @@ def hello():
     lat_b, long_b = 41.600262, -93.649731  # Bottom right corner of campus
     map_center_coords = ((lat_a + lat_b) / 2, (long_a + long_b) / 2)
 
-    desired_width = 800     # width of map on webpage, used to calc the height
+    desired_width = 1000     # width of map on webpage, used to calc the height
     desired_height = -1 * calcheight(lat_a, long_a, lat_b, long_b, desired_width)
 
     # Call get_tile_data function to get tile data synchronously
