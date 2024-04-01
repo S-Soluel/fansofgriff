@@ -1,3 +1,6 @@
+# Sam S
+# Date: Mar 25 -> been a while since I looked at this, appears to be using AWS SNS / boto3
+
 import json
 import logging
 import time
