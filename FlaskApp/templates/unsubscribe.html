@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribing from the Griff Tracker</title>
+    <style>
+        /* Style for navigation bar */
+        nav {
+            background-color: #007bff;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/calendar">Calendar</a>
+        <a href="/subscribe">Email Notifications</a>
+    </nav>
+<body>
+    <h1>To unsubscribe from Griff Tracker Alerts, Please Enter Your Email</h1>
+    <form action="{{ url_for('email_unsubscribe') }}" method="post">
+        <label for="unsub_email"></label><br>
+        <input placeholder="Email" type="text" autocomplete="off" name="unsub_email" required>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>
