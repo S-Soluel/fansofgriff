@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Griff Tracker</title>
+    {{ turbo() }}
     <style>
         /* Add any custom styles for your landing page here */
         .container {
@@ -60,7 +61,8 @@
         <!-- This is where you'll embed the contents of index.html -->
         {{ iframe|safe }}
     </div>
-
+    {% include "loadmap.html" %}
+    {% block content %}{% endblock %}
     
     <!-- Calendar with event dates -->
     <div class="container">

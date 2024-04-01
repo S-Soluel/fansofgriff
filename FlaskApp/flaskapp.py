@@ -1,13 +1,26 @@
 from flask import Flask, render_template
 from pytileTester import main as PyTile
 from calcmapsize import calc_map_size_from_desired_width as calcheight
-import asyncio
+from turbo_flask import Turbo
+import asyncio, time, random
 import folium
+import threading
 
-
+# ------------------------------------
 
 app = Flask(__name__)
+turbo = Turbo(app)
 
+def update_load():
+    while True:
+        try:
+            with app.app_context():
+                print("test")
+                turbo.push(turbo.replace(render_template('loadmap.html'), 'load'))
+        except Exception as e:
+            print(f"Error in update_load: {str(e)}")
+        time.sleep(5)
+    
 events = [
     {
         'todo' : 'Relays Opening',
@@ -36,7 +49,7 @@ def hello():
     loop = asyncio.new_event_loop()
     lat, long = loop.run_until_complete(PyTile())
     loop.close()
-    
+
     m = folium.Map(
         location=map_center_coords, 
         zoom_start=17, bounds=[(lat_a, long_a), (lat_b, long_b)], 
@@ -70,6 +83,18 @@ def home():
 def calendar():
     return render_template('calendar.html', events = events)
 
+@app.context_processor
+def inject_load():
+    loop = asyncio.new_event_loop()
+    lat, long = loop.run_until_complete(PyTile())
+    loop.close()
+    lat2 = random.randrange(100) + lat
+    long2 = random.randrange(100) + long
+    print(lat2)
+    print(long2)
+    return {'lat2': lat2, 'long2': long2}
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+    threading.Thread(target=update_load).start()
