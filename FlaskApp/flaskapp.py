@@ -1,8 +1,35 @@
 from flask import Flask, render_template
 from calcmapsize import calc_map_size_from_desired_width as calcheight
+from turbo_flask import Turbo
+import asyncio, time, random
 import folium
+import threading
+
+# ------------------------------------
 
 app = Flask(__name__)
+turbo = Turbo(app)
+
+def update_load():
+    while True:
+        try:
+            with app.app_context():
+                print("test")
+                turbo.push(turbo.replace(render_template('loadmap.html'), 'load'))
+        except Exception as e:
+            print(f"Error in update_load: {str(e)}")
+        time.sleep(5)
+    
+events = [
+    {
+        'todo' : 'Relays Opening',
+        'date' : '04-26-2024',
+    },
+    {
+        'todo' : 'Beautiful Bulldog Contest',
+        'date' : '04-20-2024'
+    }
+]
 
 @app.route('/')
 def hello():
@@ -14,8 +41,9 @@ def hello():
     desired_width = 1000     # width of map on webpage, used to calc the height
     desired_height = -1 * calcheight(lat_a, long_a, lat_b, long_b, desired_width)
 
-    # Call get_tile_data function to get tile data synchronously
-    lat, long = get_tile_data()
+    loop = asyncio.new_event_loop()
+    lat, long = loop.run_until_complete(PyTile())
+    loop.close()
 
     m = folium.Map(
         location=map_center_coords, 
@@ -53,6 +81,17 @@ def calendar():
     # Add logic to render the calendar page
     return render_template('calendar.html')
 
+@app.context_processor
+def inject_load():
+    loop = asyncio.new_event_loop()
+    lat, long = loop.run_until_complete(PyTile())
+    loop.close()
+    lat2 = random.randrange(100) + lat
+    long2 = random.randrange(100) + long
+    print(lat2)
+    print(long2)
+    return {'lat2': lat2, 'long2': long2}
+
 # Define route for the email notifications page
 @app.route('/notifications')
 def notifications():
@@ -61,3 +100,4 @@ def notifications():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+    threading.Thread(target=update_load).start()
