@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up for Griff Tracker Alerts</title>
+    <title>Unsubscribing from the Griff Tracker</title>
     <style>
         /* Style for navigation bar */
         nav {
@@ -27,17 +27,13 @@
     <nav>
         <a href="/">Home</a>
         <a href="/calendar">Calendar</a>
-        <a href="/notifications">Email Notifications</a>
+        <a href="/subscribe">Email Notifications</a>
     </nav>
 <body>
-    <h1>Enter your email address and name to subscribe to the Griff Tracker!</h1>
-    <form action="{{ url_for('email_notifications') }}" method="post">
-        <label for="submit_email"></label><br>
-        <input placeholder="Email" type="text" autocomplete="off" name="submit_email" required>
-        <label for="submit_fname">First Name</label><br>
-        <input placeholder="First Name" type="text" autocomplete="off" name="submit_fname" required>
-        <label for="submit_lname">Last Name</label><br>
-        <input placeholder="Last Name" type="text" autocomplete="off" name="submit_lname" required>
+    <h1>To unsubscribe from Griff Tracker Alerts, Please Enter Your Email</h1>
+    <form action="{{ url_for('email_unsubscribe') }}" method="post">
+        <label for="unsub_email"></label><br>
+        <input placeholder="Email" type="text" autocomplete="off" name="unsub_email" required>
         <input type="submit" value="Submit">
     </form>
 
