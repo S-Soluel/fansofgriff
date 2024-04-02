@@ -1,8 +1,18 @@
-from flask import Flask, render_template, jsonify
+
+from flask import Flask, render_template, jsonify, request, redirect, url_for, flash, session
+import secrets
 from pytileTester import main as PyTile
 from calcmapsize import calc_map_size_from_desired_width as calcheight
 import asyncio, time, random
 import folium
+from email_functions import *
+import threading
+
+app = Flask(__name__, static_url_path='/static')
+app.config["SESSION_PERMANENT"] = False
+app.secret_key = secrets.token_bytes(32)
+app.config['SESSION_TYPE'] = 'filesystem'
+
 # ------------------------------------
 
 def get_tile_data():
@@ -76,10 +86,31 @@ def calendar():
     return render_template('calendar.html')
 
 # Define route for the email notifications page
-@app.route('/notifications')
-def notifications():
+@app.route('/notifications', methods = ["GET", "POST"])
+def email_notifications():
+    if request.method == "POST":
+        email = request.form['submit_email']
+        fname = request.form['submit_fname']
+        lname = request.form['submit_lname']
+        subscribe(email, fname, lname)
+
+        flash('You have successfully signed up for Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
     # Add logic to render the email notifications page
-    return render_template('notifications.html')
+        return render_template('email_notifications.html')
+    else:
+        return render_template('email_notifications.html')
+
+
+@app.route('/unsubscribe', methods = ["GET", "POST"])
+def email_unsubscribe():
+    if request.method == "POST":
+        email = request.form['unsub_email']
+        unsubscribe(email)
+
+        flash('You have successfully unsubscribed from Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
+        return render_template('landing.html')
+    else:
+        return render_template('unsubscribe.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
