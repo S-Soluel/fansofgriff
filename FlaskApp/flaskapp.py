@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, jsonify, request, redirect, url_for, flash, session
 import secrets
 from pytileTester import main as PyTile
@@ -29,6 +28,7 @@ desired_width = 1000     # width of map on webpage, used to calc the height
 desired_height = -1 * calcheight(lat_a, long_a, lat_b, long_b, desired_width)
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def hello():
@@ -78,8 +78,7 @@ def map_data():
 
     }
     return jsonify(data)
-
-# Define route for the calendar page
+  
 @app.route('/calendar')
 def calendar():
     # Add logic to render the calendar page
