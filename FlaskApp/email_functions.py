@@ -171,16 +171,21 @@ def send_email(template_name):
    for person in email_list:
       temp_email = person['EmailAddress']
       temp_fn = person['firstname']
+      try:
+         response = ses.send_templated_email(
+         Source = 'Fans of Griff <fansofgriff51@gmail.com>',
+         Destination = {'BccAddresses': [temp_email]},
+         Template = template_name,
+         # such as Griff_Sighting
+         TemplateData = json.dumps({'firstname': temp_fn})
+         )
+         print(response)
+      except:
+         print("An error occurred. This Griff Tracker Alert was not sent to: " + temp_email)
 
-      response = ses.send_templated_email(
-      Source = 'Fans of Griff <fansofgriff51@gmail.com>',
-      Destination = {'BccAddresses': [temp_email]},
-      Template = template_name,
-      # such as Griff_Sighting
-      TemplateData = json.dumps({'firstname': temp_fn})
-      )
-   print(response)
 
-# unsubscribe('sam.solheim@drake.edu')
+# unsubscribe('maddie.mcerlean@drake.edu')
+# unsubscribe('joe.barnard@drake.edu')
 # subscribe('maddie.mcerlean@drake.edu', 'Maddie', 'McErlean')
+# subscribe('joe.barnard@drake.edu', 'Joe', 'Barnard')
 # send_email('Griff_Sighting')
