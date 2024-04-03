@@ -28,7 +28,7 @@ desired_width = 1000     # width of map on webpage, used to calc the height
 desired_height = -1 * calcheight(lat_a, long_a, lat_b, long_b, desired_width)
 
 
-
+app = Flask(__name__)
 
 @app.route('/')
 def hello():
