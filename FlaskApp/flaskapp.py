@@ -13,7 +13,6 @@ app.secret_key = secrets.token_bytes(32)
 app.config['SESSION_TYPE'] = 'filesystem'
 
 # ------------------------------------
-
 def get_tile_data():
     # Simulate fetching tile data synchronously
     return 41.603062, -93.653819
@@ -26,9 +25,6 @@ long_center_coord = (long_a + long_b) / 2
 map_center_coords = ((lat_a + lat_b) / 2, (long_a + long_b) / 2)
 desired_width = 1000     # width of map on webpage, used to calc the height
 desired_height = -1 * calcheight(lat_a, long_a, lat_b, long_b, desired_width)
-
-
-app = Flask(__name__)
 
 @app.route('/')
 def hello():
