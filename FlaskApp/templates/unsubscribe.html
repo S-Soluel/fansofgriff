@@ -27,12 +27,21 @@
     <nav>
         <a href="/">Home</a>
         <a href="/calendar">Calendar</a>
-        <a href="/subscribe">Email Notifications</a>
+        <a href="/notifications">Email Notifications</a>
+        <a href="/unsubscribe">Unsubscribe</a>
     </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
 <body>
     <h1>To unsubscribe from Griff Tracker Alerts, Please Enter Your Email</h1>
     <form action="{{ url_for('email_unsubscribe') }}" method="post">
-        <label for="unsub_email"></label><br>
         <input placeholder="Email" type="text" autocomplete="off" name="unsub_email" required>
         <input type="submit" value="Submit">
     </form>

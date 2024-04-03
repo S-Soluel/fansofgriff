@@ -28,7 +28,17 @@
         <a href="/">Home</a>
         <a href="/calendar">Calendar</a>
         <a href="/notifications">Email Notifications</a>
+        <a href="/unsubscribe">Unsubscribe</a>
     </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
     <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%234285F4&showTabs=0&title=Griff's%20Events&src=ZmFuc29mZ3JpZmY1MUBnbWFpbC5jb20&color=%23039BE5" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 </body>
 </html>

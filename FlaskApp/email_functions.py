@@ -124,6 +124,7 @@ def get_contact(email):
    )
    attr_data = json.loads(response['AttributesData'])
    temp_dict = {'EmailAddress': response['EmailAddress'], 'firstname': attr_data['firstname']}
+   print(temp_dict)
    return(temp_dict)
 
 ## Need to make a function that will give me a list of dictionaries
@@ -140,6 +141,7 @@ def get_subscribers_and_templatedata():
 
 # get_subscribers('OPT_IN')
 # get_email_template()
+# get_contact('maddie.mcerlean@drake.edu')
 
 def update_template(name, subject, text_content, html_content):
    response = sesv2.update_email_template(
@@ -180,5 +182,5 @@ def send_email(template_name):
    print(response)
 
 # unsubscribe('sam.solheim@drake.edu')
-# subscribe('maddie.backhaus@drake.edu', 'Maddie', 'Backhaus')
+# subscribe('maddie.mcerlean@drake.edu', 'Maddie', 'McErlean')
 # send_email('Griff_Sighting')
