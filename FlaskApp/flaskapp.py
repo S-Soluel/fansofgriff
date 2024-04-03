@@ -16,7 +16,6 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 # ------------------------------------
 
-app = Flask(__name__)
 turbo = Turbo(app)
 
 def update_load():
@@ -105,13 +104,17 @@ def email_notifications():
         email = request.form['submit_email']
         fname = request.form['submit_fname']
         lname = request.form['submit_lname']
-        subscribe(email, fname, lname)
-
-        flash('You have successfully signed up for Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
-    # Add logic to render the email notifications page
-        return render_template('email_notifications.html')
+        try:
+            subscribe(email, fname, lname)
+            flash('You have successfully signed up for Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
+            # Add logic to render the email notifications page
+            return render_template('notifications.html')
+        except:
+            flash('The email you entered has already subscribed to Griff Tracker Alerts', 'warning')  # 'success' is a category; makes a green banner at the top
+            return render_template('notifications.html')
+        
     else:
-        return render_template('email_notifications.html')
+        return render_template('notifications.html')
 
 
 @app.route('/unsubscribe', methods = ["GET", "POST"])
@@ -121,7 +124,7 @@ def email_unsubscribe():
         unsubscribe(email)
 
         flash('You have successfully unsubscribed from Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
-        return render_template('landing.html')
+        return render_template('notifications.html')
     else:
         return render_template('unsubscribe.html')
 

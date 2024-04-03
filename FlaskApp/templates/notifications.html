@@ -3,15 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Griff Tracker</title>
+    <title>Sign up for Griff Tracker Alerts</title>
     <style>
-        /* Add any custom styles for your landing page here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative; /* Ensure container is positioned for absolute positioning of event dates */
-        }
         /* Style for navigation bar */
         nav {
             background-color: #007bff;
@@ -35,12 +28,26 @@
         <a href="/">Home</a>
         <a href="/calendar">Calendar</a>
         <a href="/notifications">Email Notifications</a>
+        <a href="/unsubscribe">Unsubscribe</a>
     </nav>
-    <div class="container">
-        <h1>Notif test!</h1>
-        <label for="email">Enter your email below to get notified when Griff II is on campus:</label><br>
-        <input type="email" id="email" name="email">
-        <input type="submit" value="Submit email!">
-    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+<body>
+    <h1>Enter your email address and name to subscribe to the Griff Tracker!</h1>
+    <form action="{{ url_for('email_notifications') }}" method="post">
+        <input placeholder="Email" type="text" autocomplete="off" name="submit_email" required>
+        <input placeholder="First Name" type="text" autocomplete="off" name="submit_fname" required>
+        <input placeholder="Last Name" type="text" autocomplete="off" name="submit_lname" required>
+        <input type="submit" value="Submit">
+    </form>
+
 </body>
+
 </html>
