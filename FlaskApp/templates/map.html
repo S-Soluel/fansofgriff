@@ -7,72 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <style>
         #map {
-            height: 841px; /* Numbers are from the calcmapsize.py functions. Could make this dynamic later but it's unlikely to change. */
-            width: 1000px;
+            width: 800px;
+            height: 800px;
         }
     </style>
 </head>
 <body>
-    
+    <p id="griffStatusMessage">Griff is <span id="griffStatus">off</span> campus<span id="griffStatus2">.</span></p>
     <div id="map"></div>
-    <script>
-        var map = L.map('map', {
-            center: [0, 0],
-            zoom: 17,
-            dragging: false, // Disable dragging
-            zoomControl: false, // Disable zoom control
-            scrollWheelZoom: false, // Disable scroll wheel zoom
-            doubleClickZoom: false, // Disable double click zoom
-            boxZoom: false, // Disable box zoom
-            tap: false, // Disable tap events
-            touchZoom: false // Disable touch zoom
-        });
-
-        // Add OpenStreetMap tiles to the map
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-
-        function updateMap() {
-            $.get('/map_data', function(data) {
-                // Update map with new data
-                map.setView([data.latitude, data.longitude], 17);
-                map.setMaxBounds([[data.lat_a, data.long_a], [data.lat_b, data.long_b]]);
-
-                var marker = L.marker([data.markerlat, data.markerlong]).addTo(map);
-                marker.bindTooltip("Griff is here!");
-                console.log("Map updated with latitude:", data.markerlat, "longitude:", data.markerlong);
-            }).fail(function() {
-                console.log("Failed to fetch map data.");
-            });
-        }
-
-        // Initial map update
-        updateMap();
-
-        // Function to update the countdown text
-        function updateCountdown(seconds) {
-            document.getElementById('countdown').innerText = seconds;
-        }
-
-        // Update the map every 60 seconds
-        setInterval(function() {
-            updateMap();
-            updateCountdown(60);
-        }, 60000);
-
-        // Update the countdown every second
-        setInterval(function() {
-            var countdownElement = document.getElementById('countdown');
-            var seconds = parseInt(countdownElement.innerText);
-            if (seconds > 0) {
-                updateCountdown(seconds - 1);
-            }
-        }, 1000);
-    </script>
-    <!-- Display countdown until map refresh -->
+    <script src = "../static/mapLogic.js"></script>
     <p id="refreshCountdown">Map will refresh in <span id="countdown">60</span> seconds.</p>
-
 </body>
 </html>

@@ -73,8 +73,9 @@
     <div class="container-wrapper">
         <div class="container">
             <h1>Welcome to the Griff Tracker!</h1>
-            {% include "map.html" %}
-        {% block content %}{% endblock %} 
+            <div id="map-container">
+                {% include "map.html" %}
+            </div>
         </div>
         
        <div class="agenda" style="flex: 25%;">
