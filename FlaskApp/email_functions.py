@@ -124,6 +124,7 @@ def get_contact(email):
    )
    attr_data = json.loads(response['AttributesData'])
    temp_dict = {'EmailAddress': response['EmailAddress'], 'firstname': attr_data['firstname']}
+   print(temp_dict)
    return(temp_dict)
 
 ## Need to make a function that will give me a list of dictionaries
@@ -140,6 +141,7 @@ def get_subscribers_and_templatedata():
 
 # get_subscribers('OPT_IN')
 # get_email_template()
+# get_contact('maddie.mcerlean@drake.edu')
 
 def update_template(name, subject, text_content, html_content):
    response = sesv2.update_email_template(
@@ -169,16 +171,21 @@ def send_email(template_name):
    for person in email_list:
       temp_email = person['EmailAddress']
       temp_fn = person['firstname']
+      try:
+         response = ses.send_templated_email(
+         Source = 'Fans of Griff <fansofgriff51@gmail.com>',
+         Destination = {'BccAddresses': [temp_email]},
+         Template = template_name,
+         # such as Griff_Sighting
+         TemplateData = json.dumps({'firstname': temp_fn})
+         )
+         print(response)
+      except:
+         print("An error occurred. This Griff Tracker Alert was not sent to: " + temp_email)
 
-      response = ses.send_templated_email(
-      Source = 'Fans of Griff <fansofgriff51@gmail.com>',
-      Destination = {'BccAddresses': [temp_email]},
-      Template = template_name,
-      # such as Griff_Sighting
-      TemplateData = json.dumps({'firstname': temp_fn})
-      )
-   print(response)
 
-# unsubscribe('sam.solheim@drake.edu')
-# subscribe('maddie.backhaus@drake.edu', 'Maddie', 'Backhaus')
+# unsubscribe('maddie.mcerlean@drake.edu')
+# unsubscribe('joe.barnard@drake.edu')
+# subscribe('maddie.mcerlean@drake.edu', 'Maddie', 'McErlean')
+# subscribe('joe.barnard@drake.edu', 'Joe', 'Barnard')
 # send_email('Griff_Sighting')
