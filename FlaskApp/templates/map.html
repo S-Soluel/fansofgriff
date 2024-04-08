@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <style>
+        #map {
+            width: 800px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+    <p id="griffStatusMessage">Griff is <span id="griffStatus">off</span> campus<span id="griffStatus2">.</span></p>
+    <div id="map"></div>
+    <script src = "../static/mapLogic.js"></script>
+    <p id="refreshCountdown">Map will refresh in <span id="countdown">60</span> seconds.</p>
+</body>
+</html>

@@ -69,15 +69,26 @@
         <a href="/">Home</a>
         <a href="/calendar">Calendar</a>
         <a href="/notifications">Email Notifications</a>
+        <a href="/unsubscribe">Unsubscribe</a>
     </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <div class="container-wrapper">
         <div class="container">
             <h1>Welcome to the Griff Tracker!</h1>
-            <h3>The dog is at: {{ lat }}, {{ long }}</h3>
-            <!-- This is where you'll embed the contents of index.html -->
-            {{ iframe|safe }}
+            <div id="map-container">
+                {% include "map.html" %}
+            </div>
         </div>
-        <div class="agenda" style="flex: 25%;">
+        
+       <div class="agenda" style="flex: 25%;">
             <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&bgcolor=%234285F4&showTabs=0&title=Griff's%20Events&mode=AGENDA&showNav=0&src=ZmFuc29mZ3JpZmY1MUBnbWFpbC5jb20&color=%23039BE5" style="border:solid 1px #777; width: 100%; height: 100%;" frameborder="0" scrolling="no"></iframe>
         </div>
     </div>

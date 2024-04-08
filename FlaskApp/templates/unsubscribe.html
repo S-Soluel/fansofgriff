@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up for Griff Tracker Alerts</title>
+    <title>Unsubscribing from the Griff Tracker</title>
     <style>
         /* Style for navigation bar */
         nav {
@@ -40,11 +40,9 @@
     {% endif %}
     {% endwith %}
 <body>
-    <h1>Enter your email address and name to subscribe to the Griff Tracker!</h1>
-    <form action="{{ url_for('email_notifications') }}" method="post">
-        <input placeholder="Email" type="text" autocomplete="off" name="submit_email" required>
-        <input placeholder="First Name" type="text" autocomplete="off" name="submit_fname" required>
-        <input placeholder="Last Name" type="text" autocomplete="off" name="submit_lname" required>
+    <h1>To unsubscribe from Griff Tracker Alerts, Please Enter Your Email</h1>
+    <form action="{{ url_for('email_unsubscribe') }}" method="post">
+        <input placeholder="Email" type="text" autocomplete="off" name="unsub_email" required>
         <input type="submit" value="Submit">
     </form>
 
