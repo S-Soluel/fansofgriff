@@ -13,7 +13,7 @@ def check_if_on_campus():
     latitude_passed = False
     longitude_passed = False
 
-    if (lat_a < tracker_lat < lat_b):
+    if (lat_a > tracker_lat > lat_b):
         latitude_passed = True
     
     if (long_a < tracker_long < long_b):
