@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, flash, session
+from flask import Flask, render_template, jsonify, request, redirect, url_for, flash, session, json
 import secrets
 from get_pytile_lat_long import main as PyTile
 from trigger_email_sender import check_if_on_campus as checker
@@ -66,7 +66,7 @@ def email_unsubscribe():
     if request.method == "POST":
         email = request.form['unsub_email']
         unsubscribe(email)
-
+        
         flash('You have successfully unsubscribed from Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
         return render_template('notifications.html')
     else:
