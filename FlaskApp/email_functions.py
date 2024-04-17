@@ -206,7 +206,7 @@ def send_email(template_name):
 # unsubscribe('joe.barnard@drake.edu')
 # subscribe('maddie.mcerlean@drake.edu', 'Maddie', 'McErlean')
 # subscribe('joe.barnard@drake.edu', 'Joe', 'Barnard')
-send_email('Griff_Sighting')
+# send_email('Griff_Sighting')
 
 #update_template(TEMPLATE_NAME, SUBJECT_LINE, TEXT_CONTENT, HTML_CONTENT)
 #get_email_template()

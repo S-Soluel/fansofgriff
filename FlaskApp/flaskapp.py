@@ -6,7 +6,7 @@ import asyncio
 from email_functions import *
 from coordinates import *
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_folder='/static')
 app.config["SESSION_PERMANENT"] = False
 app.secret_key = secrets.token_bytes(32)
 app.config['SESSION_TYPE'] = 'filesystem'
