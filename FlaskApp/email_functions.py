@@ -59,10 +59,10 @@ def subscribe(email, firstname, lastname):
 # This function allows someone to input their email address, and then their
 # contact in SES will be deleted. 
 def unsubscribe(email):
-   response = sesv2.delete_contact(
-      ContactListName = 'Griff_Tracker_Subscribers',
-      EmailAddress = email
-   )
+      response = sesv2.delete_contact(
+         ContactListName = 'Griff_Tracker_Subscribers',
+         EmailAddress = email
+      )
    #print(response)
 
 # Returns the json parameters that are associated with the "Griff__Sighting" email template. 
@@ -70,7 +70,7 @@ def get_email_template():
    response = sesv2.get_email_template(
       TemplateName='Griff_Sighting'
    )
-   print(response)
+   #print(response)
 
 # This function simply returns the email addresses of all subscribers
 # Used as a helper function to get a list of emails, which is later used
@@ -175,7 +175,7 @@ def update_template(name, subject, text_content, html_content):
         'Html': html_content
     }
 )
-   print(response)
+   #print(response)
 
 def send_email(template_name):
    # Unfortunately, from what I've seen so far we might just need to have a for loop in this function,
@@ -197,7 +197,7 @@ def send_email(template_name):
          # such as Griff_Sighting
          TemplateData = json.dumps({'firstname': temp_fn})
          )
-         print(response)
+         #print(response)
       except:
          print("An error occurred. This Griff Tracker Alert was not sent to: " + temp_email)
 
@@ -206,7 +206,7 @@ def send_email(template_name):
 # unsubscribe('joe.barnard@drake.edu')
 # subscribe('maddie.mcerlean@drake.edu', 'Maddie', 'McErlean')
 # subscribe('joe.barnard@drake.edu', 'Joe', 'Barnard')
-send_email('Griff_Sighting')
+# send_email('Griff_Sighting')
 
 #update_template(TEMPLATE_NAME, SUBJECT_LINE, TEXT_CONTENT, HTML_CONTENT)
 #get_email_template()

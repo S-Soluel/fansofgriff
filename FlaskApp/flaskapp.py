@@ -65,10 +65,16 @@ def email_notifications():
 def email_unsubscribe():
     if request.method == "POST":
         email = request.form['unsub_email']
-        unsubscribe(email)
-        
-        flash('You have successfully unsubscribed from Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
-        return render_template('notifications.html')
+        try:
+            # try block for calling the unsubscribe function
+            unsubscribe(email)
+            flash('You have successfully unsubscribed from Griff Tracker Alerts!', 'success')  # 'success' is a category; makes a green banner at the top
+            
+            return render_template('notifications.html')
+        except:
+            temp_message = 'An error occurred. The following email is not subscribed to the Griff Tracker, or is not a valid email: ' + email 
+            flash(temp_message, 'warning')
+            return render_template('notifications.html')
     else:
         return render_template('unsubscribe.html')
 
