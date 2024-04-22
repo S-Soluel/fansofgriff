@@ -1,0 +1,56 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.container-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.container {
+    flex: 75%;
+    padding: 20px;
+    position: relative;
+}
+.agenda {
+    height: 600px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: relative;
+}
+.agenda iframe {
+    width: 100%;
+    height: 100%;
+    border: solid 1px #777;
+}
+/* Style for navigation bar */
+nav {
+    background-color: #007bff;
+    overflow: hidden;
+}
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+nav a:hover {
+    background-color: #0056b3;
+}
+/* Optional: Adjust layout for smaller screens */
+@media screen and (max-width: 768px) {
+    .container-wrapper {
+        flex-direction: column;
+    }
+    .container {
+        flex: 100%;
+    }
+    .agenda {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
