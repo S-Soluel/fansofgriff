@@ -2,3 +2,4 @@ package-lock.json
 package.json
 FlaskApp/__pycache__/
 node_modules/
+FlaskApp/boolean.txt

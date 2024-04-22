@@ -2,6 +2,7 @@
 
 from coordinates import *
 from get_pytile_lat_long import main as Pytile
+from email_functions import send_email
 import asyncio
 import os
 
@@ -16,28 +17,51 @@ def check_if_on_campus():
     if (lat_a > tracker_lat > lat_b):
         latitude_passed = True
     
+
     if (long_a < tracker_long < long_b):
         longitude_passed = True
 
     return latitude_passed and longitude_passed
 
+import os
+
 def read_boolean():
-    if os.path.exists("boolean.txt"):
-        with open("boolean.txt", "r") as file:
-            return file.read().strip() == "True"
+    script_dir = os.path.dirname(__file__)
+    file_path = os.path.join(script_dir, "boolean.txt")
+    if os.path.exists(file_path):
+        print("Found boolean.txt")
+        with open(file_path, "r") as file:
+            content = file.read().strip()
+            print("Content:", content)
+            return content == "True"
     else:
+        print("boolean.txt not found")
         return False  # Default value if file doesn't exist
 
+# Test the function
+print("Boolean value:", read_boolean())
+print (check_if_on_campus())
+
 def write_boolean(boolean_value):
-    with open("boolean.txt", "w") as file:
-        file.write(str(boolean_value))
+    script_dir = os.path.dirname(__file__)
+    file_path = os.path.join(script_dir, "boolean.txt")
+    if os.path.exists(file_path):
+        print("Found boolean.txt")
+        with open(file_path, "w") as file:
+            file.write(str(boolean_value))
+            file.close()
+            print("Wrote to boolean.txt= ", boolean_value)
+            return True
+    else:
+        print("boolean.txt not found")
+        return False  # Default value if file doesn't exist
 
 def main(): 
-    have_emailed = read_boolean
+    have_emailed = read_boolean()
 
     if check_if_on_campus:
         if not have_emailed:
-            # email_list()
+            send_email('Griff_Sighting')
             have_emailed = True
             print("emailed")
         else:
@@ -45,8 +69,6 @@ def main():
             return
     else:
         have_emailed = False
-        print("off campus")
-
     
     write_boolean(have_emailed)
 
